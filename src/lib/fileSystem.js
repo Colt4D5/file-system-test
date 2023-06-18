@@ -13,13 +13,12 @@ export async function getFilesInDir(providedPath = '/') {
   })
   return stuff;
 }
-export const readFilesInDir = (providedPath = '/', file) => {
-  const selectedPath = path.join(__dirname, providedPath);
-  fs.readFile(`${selectedPath}/${file}`, "utf8", function(err, content) {
+export const readFilesInDir = async (providedPath = '/') => {
+  const fileContents = await fs.readFileSync(providedPath, "utf8", function(err, content) {
     if (err) {
       return console.error(err);
     }
     console.log(content);
-    return content;
   })
+  return fileContents;
 }

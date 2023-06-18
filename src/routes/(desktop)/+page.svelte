@@ -1,37 +1,39 @@
 <script>
-  import { page } from '$app/stores';
-  // console.log($page);
   export let data;
-  const folderIcon = '/images/folder.svg';
+  import { windows } from '$stores/windows.js';
+  import { openFile, getIcon } from '$utils/fileExplorer.js';
+  import Window from '$lib/components/Window.svelte';
 
-  const openFile = async (e) => {
-    const directory = e.target.closest('.file').dataset.directory;
-    const res = await fetch('/api/open-file', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ directory })
-    });
-    const files = await res.json();
-    console.log(files);
+  let openWindows;
+
+  windows.subscribe(window => {
+    openWindows = window;
+  })
+
+  const closeWindow = (id) => {
+    $windows = $windows.filter(w => w.id != id);
   }
 </script>
 
-
-<h1>Welcome to SvelteKits</h1>
-<p>{ data.homePath }</p>
+<!-- <h1>Welcome to SvelteKits</h1> -->
+<!-- <p>{ data.homePath }</p> -->
 
 {#if data.files }
   <div id="file-grid">
-    {#each data.files as file }
-      <div on:dblclick={openFile} class="file" data-directory={`${data.homePath}/${file}`}>
-        <img src={folderIcon} alt={`${file} folder`} />
-        <h2>{ file }</h2>
-      </div>
+    {#each data?.files as file }
+      {#if file !== '.DS_Store' }
+        <div on:dblclick={openFile} data-is-on-desktop="true" class="file" data-directory={`${data.homePath}/${file}`}>
+          <img src={getIcon(file)} alt={`${file} folder`} />
+          <h2>{ file }</h2>
+        </div>
+      {/if}
     {/each}
   </div>
 {/if}
+
+{#each openWindows as window (window.id) }
+  <Window on:close={() => closeWindow(window.id)} { window } {openWindows} />
+{/each}
 
 <style>
   #file-grid {
@@ -39,6 +41,7 @@
     flex-direction: column;
     align-content: baseline;
     justify-content: flex-start;
+    max-height: calc(100vh - 100px);
   }
   .file {
     width: 100px;

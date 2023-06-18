@@ -7,6 +7,8 @@ const config = {
 		alias: {
 				'$lib': '/src/lib',
 				'$home': '/src/home',
+				'$stores': '/src/lib/stores',
+				'$utils': '/src/lib/utils',
 		}
 	}
 };

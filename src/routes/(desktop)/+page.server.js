@@ -5,6 +5,16 @@ import * as url from 'url';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
+export const load = async () => {
+  const homePath = path.join(__dirname, '..', '..', 'home');
+  const filesInPath = await getFilesInDir(`${homePath}/`);
+
+  return {
+    homePath: homePath,
+    files: filesInPath.filter(file => file !== '.DS_Store').map(file => file.replace('.svelte', ''))
+  }
+}
+
 async function getFilesInDir(providedPath = '/') {
   const selectedPath = providedPath;
   const stuff = await fs.readdirSync(selectedPath, (err, files) => {
@@ -21,14 +31,4 @@ function readFilesInDir(providedPath = '/', file) {
     }
     console.log(content);
   })
-}
-
-export const load = async () => {
-  const homePath = path.join(__dirname, '..', '..', 'home');
-  const filesInPath = await getFilesInDir(`${homePath}/`);
-
-  return {
-    homePath: homePath,
-    files: filesInPath
-  }
 }
