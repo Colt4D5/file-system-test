@@ -15,9 +15,6 @@
   }
 </script>
 
-<!-- <h1>Welcome to SvelteKits</h1> -->
-<!-- <p>{ data.homePath }</p> -->
-
 {#if data.files }
   <div id="file-grid">
     {#each data?.files as file }
@@ -35,23 +32,27 @@
   <Window on:close={() => closeWindow(window.id)} { window } {openWindows} />
 {/each}
 
-<style>
+<style lang="postcss">
   #file-grid {
+    padding: 1rem;
     display: flex;
+    /* grid-template-rows: auto; */
     flex-direction: column;
     align-content: baseline;
     justify-content: flex-start;
     max-height: calc(100vh - 100px);
-  }
-  .file {
-    width: 100px;
-    text-align: center;
-  }
-  .file img {
-    width: 65px;
-  }
-  .file h2 {
-    font-size: 1rem;
-    font-weight: normal;
+    & .file {
+      width: 100px;
+      text-align: center;
+      & img {
+        width: 65px;
+      }
+      & h2 {
+        font-size: 0.85rem;
+        line-height: 1.1;
+        font-weight: normal;
+        color: #ffffff;
+      }
+    }
   }
 </style>
