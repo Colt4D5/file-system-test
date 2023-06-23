@@ -1,9 +1,9 @@
 <script>
-  // import settingsIcon from 'images/settings.svg';
+  import AppsIcon from '$lib/svgs/apps.svg?raw';
 </script>
 
 <div id="dock">
-  <button id="dock-btn"><img src="images/settings.svg" alt="Settings button" /></button>
+  <button id="dock-btn">{@html AppsIcon}</button>
 </div>
 
 <style lang="postcss">
@@ -19,7 +19,10 @@
     z-index: 2;
     & #dock-btn {
       background-color: #ffffff22;
-      padding: 0 1rem;
+      padding: 0.25rem 0.5rem;
+      display: flex; 
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
       &:hover {
         background-color: #00000011;

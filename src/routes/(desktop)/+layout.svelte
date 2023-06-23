@@ -25,5 +25,6 @@ import '/src/app.postcss';
     background-image: url('images/pika.webp');
     background-size: cover;
     background-position: center;
+    overflow: hidden;
   }
 </style>

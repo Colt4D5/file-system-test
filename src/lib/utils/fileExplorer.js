@@ -58,7 +58,9 @@ export const openFile = async (e) => {
 }
 
 export const getIcon = (file) => {
-  if (file.endsWith('.txt')) {
+  if (file.toLowerCase() === 'bin') {
+    return '/images/trash-bin.svg';
+  } else if (file.endsWith('.txt')) {
     return '/images/doc.svg';
   } else {
     return '/images/folder.svg'

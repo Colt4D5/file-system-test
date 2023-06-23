@@ -29,7 +29,7 @@
 {/if}
 
 {#each openWindows as window (window.id) }
-  <Window on:close={() => closeWindow(window.id)} { window } {openWindows} />
+  <Window on:close={() => closeWindow(window.id)} osWindow={ window } {openWindows} />
 {/each}
 
 <style lang="postcss">
